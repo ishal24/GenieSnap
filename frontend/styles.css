@@ -1,0 +1,830 @@
+/* --- ISI styles.css ANDA (sesuai yang Anda berikan sebelumnya) --- */
+:root {
+  --primary-bg: #2B2B2B; /* Lebih gelap, sedikit hangat */
+  --secondary-bg: #333333; /* Untuk panel/kartu */
+  --navbar-bg: #3A3A3A; /* Untuk navbar */
+  --text-color: #E0E0E0; /* Abu-abu terang untuk teks umum */
+  --accent-color: #ff7e29; /* Oranye yang lebih cerah/modern */
+  --accent-hover: #ff6600; /* Oranye lebih gelap untuk hover */
+  --border-color-light: rgba(255, 255, 255, 0.05); /* Border sangat tipis */
+  --border-radius-base: 10px;
+  --button-border-radius: 8px;
+  --spacing-sm: 15px;
+  --spacing-md: 20px;
+  --spacing-lg: 30px;
+  --box-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif; /* Ganti font */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Untuk memusatkan .navbar dan .main-container di horizontal */
+  font-size: 16px;
+  overflow-y: auto;
+}
+
+.navbar {
+  background: var(--navbar-bg);
+  color: var(--text-color);
+  padding: var(--spacing-md) 40px; /* Perbanyak padding samping */
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  display: flex; /* Aktifkan Flexbox */
+  justify-content: space-between; /* Menjauhkan logo ke kiri, tombol ke kanan */
+  align-items: center; /* Pusatkan item secara vertikal */
+  box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
+  box-shadow: var(--box-shadow-light); /* Tambah shadow lembut */
+}
+
+/* Gaya baru untuk logo */
+.navbar-logo {
+  height: 40px; /* Sesuaikan tinggi logo sesuai kebutuhan Anda */
+  /* Anda bisa menambahkan properti lain seperti margin-right jika perlu jarak */
+}
+
+/* Gaya untuk membungkus tombol-tombol navigasi */
+.nav-buttons-right {
+  display: flex;
+  margin-right: 80px;
+  gap: 80px; /* Ubah jarak antar tombol menjadi 20px */
+}
+
+/* Biarkan gaya .navbar .nav-button tetap sama, atau sesuaikan jika perlu */
+.navbar .nav-button {
+  background: transparent;
+  color: var(--text-color);
+  padding: 10px 0px; /* Sesuaikan padding agar tidak terlalu lebar */
+  text-decoration: none;
+  border-radius: 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.navbar .nav-button:hover {
+  background: transparent;
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.navbar .nav-button.active {
+  background: transparent;
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  box-shadow: none;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%; /* Mengisi lebar penuh viewport */
+  max-width: 1300px; /* Lebarkan sedikit container utama */
+  padding: var(--spacing-md) 40px; /* Padding samping dan atas/bawah */
+  height: calc(100vh - 120px); /* Tetapkan tinggi container utama agar muat 1 halaman */
+  margin: 20px 0; /* Margin atas-bawah, hilangkan auto agar tidak memusat */
+  gap: var(--spacing-lg); /* Jarak antara panel */
+  flex-wrap: nowrap;
+  justify-content: space-between; /* PENTING: Untuk mendorong panel ke sisi kiri dan kanan */
+  align-items: stretch; /* Agar panel mengisi tinggi yang sama */
+  box-sizing: border-box;
+}
+
+.controls-panel {
+  flex: 0 0 350px; /* Lebar tetap 350px seperti yang diminta */
+  padding: var(--spacing-lg); /* Perbanyak padding */
+  min-width: 600px;
+  max-height: 600px;
+  background: var(--secondary-bg);
+  border-radius: var(--border-radius-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg); /* Perbanyak jarak */
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+  box-shadow: var(--box-shadow-light); /* Shadow yang lebih jelas */
+  border: 1px solid var(--border-color-light); /* Border sangat tipis */
+}
+
+.webcam-preview-panel {
+  flex: 1; /* Akan mengambil sisa ruang yang tersedia setelah controls-panel dan gap */
+  position: relative;
+  background: var(--secondary-bg);
+  border-radius: var(--border-radius-base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100%; /* PENTING: Mengisi tinggi parent (main-container) */
+  max-height: 600px;
+  padding-top: 0; /* PENTING: HAPUS padding-top yang menyebabkan tinggi berlebih */
+  box-sizing: border-box;
+  box-shadow: var(--box-shadow-light); /* Shadow yang lebih jelas */
+  border: 1px solid var(--border-color-light); /* Border sangat tipis */
+}
+
+.preview-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #aaa;
+  font-size: 2.5em;
+  font-weight: bold;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Webcam video */
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Mengisi panel sepenuhnya */
+  object-fit: cover;
+  border-radius: var(--border-radius-base);
+  background: black;
+  transform: scaleX(-1);
+  z-index: 5;
+}
+
+/* Input Gender Styling */
+.gender-selection {
+  margin: 0;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+  width: 100%;
+}
+
+.gender-selection label {
+  font-size: 1.1em; /* Sedikit lebih besar */
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 600; /* Lebih tebal */
+}
+
+.gender-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%; /* Agar tombol mengisi lebar container */
+}
+
+.gender-btn {
+  flex: 1; /* Agar tombol memiliki lebar yang sama */
+  padding: 12px 15px; /* Perbanyak padding */
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  border: 2px solid #555;
+  background: #444;
+  color: var(--text-color);
+  transition: all 0.25s ease-in-out; /* Transisi yang lebih halus */
+  box-sizing: border-box;
+}
+
+.gender-btn.selected-gender {
+  border-color: var(--accent-color);
+  background: var(--accent-color);
+  color: white;
+  transform: none;
+  box-shadow: inset 0 0 0 2px var(--accent-color); /* Border inset yang rapi */
+}
+
+.gender-btn:hover:not(.selected-gender) {
+  background: #4A4A4A; /* Warna hover lebih lembut */
+  border-color: #777; /* Border sedikit berubah */
+  transform: translateY(-2px); /* Efek sedikit naik */
+}
+
+
+/* Filter Section Styling */
+.filter-section {
+  width: 100%;
+  background: var(--secondary-bg); /* Konsisten dengan secondary-bg */
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-sm); /* Konsisten dengan spacing-sm */
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 400px;
+
+  /* --- START: CUSTOM SCROLLBAR FOR FILTER-SECTION --- */
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #383838;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+    border: 1px solid var(--primary-bg);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-hover);
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) #383838;
+  /* --- END: CUSTOM SCROLLBAR FOR FILTER-SECTION --- */
+}
+
+.filter-section label {
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 600; /* Lebih tebal */
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm); /* Konsisten dengan spacing-sm */
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+.filter-option {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid transparent;
+  border-radius: var(--button-border-radius);
+  padding: 5px;
+  background: #333;
+  color: var(--text-color);
+  user-select: none;
+  text-align: center;
+  transition: all 0.25s ease-in-out; /* Transisi yang lebih halus */
+  height: 200px;
+  box-sizing: border-box;
+}
+
+.filter-option.selected {
+  border-color: var(--accent-color);
+  background: #444;
+  transform: none;
+  box-shadow: inset 0 0 0 2px var(--accent-color); /* Border inset yang rapi */
+}
+
+.filter-option:hover:not(.selected) {
+  background: #4A4A4A; /* Warna hover lebih lembut */
+  border-color: var(--accent-color);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.filter-option img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 5px;
+}
+.filter-option span {
+  font-size: 0.9em;
+  white-space: normal;
+}
+
+
+/* Tombol Capture */
+#capture {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1em; /* Sedikit lebih besar */
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  border: none;
+  background: var(--accent-color);
+  color: white;
+  display: block;
+  transition: all 0.25s ease-in-out;
+}
+
+#capture:hover {
+  background: var(--accent-hover);
+  transform: translateY(-3px) scale(1.01); /* Efek sedikit naik dan membesar */
+  box-shadow: 0 6px 15px rgba(255, 112, 67, 0.4); /* Shadow sesuai warna aksen */
+}
+
+
+/* Countdown timer */
+#countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  display: none;
+  z-index: 20;
+  pointer-events: none;
+  font-weight: 300;
+  color: rgb(255, 255, 255);
+}
+
+/* Loading overlay (digunakan di index.html dan result.html) */
+.loading-overlay.full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex; /* <-- PERBAIKAN DI SINI */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  z-index: 100;
+  opacity: 0; /* Mulai tersembunyi */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.loading-overlay.full-screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.loading-overlay .loading-gif {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+/* Styling khusus untuk halaman hasil result.html */
+/* Layout utama untuk halaman result */
+.main-container.result-page-layout {
+  display: flex;
+  flex-direction: row; /* Tampilan desktop: gambar di kiri, kontrol di kanan */
+  width: 100%;
+  padding: var(--spacing-md);
+  height: calc(100vh - 120px); /* Tetapkan tinggi container utama agar muat 1 halaman */
+  margin: 20px 0;
+  gap: var(--spacing-lg); /* Jarak antara panel gambar dan panel aksi */
+  justify-content: center;
+  align-items: stretch; /* Agar panel mengisi tinggi yang sama */
+  box-sizing: border-box;
+}
+
+.generated-image-panel {
+  flex: 2; /* Mengambil lebih banyak ruang untuk gambar */
+  position: relative;
+  border-radius: var(--border-radius-base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100%; /* PENTING: Mengisi tinggi parent (main-container) */
+  box-sizing: border-box;
+  background: var(--secondary-bg); /* Tambahkan background agar konsisten */
+  box-shadow: var(--box-shadow-light);
+  border: 1px solid var(--border-color-light);
+}
+
+.generated-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Pastikan seluruh gambar terlihat */
+  border-radius: var(--border-radius-base);
+}
+
+.result-actions-panel {
+  flex: 1; /* Mengambil sisa ruang */
+  min-width: 250px; /* Lebar minimum untuk panel aksi */
+  max-width: 350px; /* Lebar maksimum untuk panel aksi */
+  padding: var(--spacing-lg);
+  background: var(--secondary-bg);
+  margin-right: 40px;
+  border-radius: var(--border-radius-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg); /* Jarak antara label dan grup tombol */
+  align-items: center; /* Pusatkan konten secara horizontal */
+  justify-content: center; /* Pusatkan konten secara vertikal */
+  box-sizing: border-box;
+  box-shadow: var(--box-shadow-light);
+  border: 1px solid var(--border-color-light);
+}
+
+.result-label {
+  font-size: 1.8em; /* Ukuran label hasil */
+  font-weight: bold;
+  color: var(--accent-color); /* Warna oranye */
+  text-align: center;
+  margin-bottom: 10px; /* Jarak ke tombol */
+}
+
+
+/* result-buttons-container */
+.result-buttons-container {
+  display: flex;
+  flex-direction: column; /* Tombol akan menumpuk secara vertikal */
+  justify-content: center;
+  gap: 15px; /* Jarak antar tombol */
+  width: 100%; /* Tombol mengisi lebar panel */
+  margin-top: 0;
+}
+
+.result-buttons-container .action-btn {
+  width: 100%; /* Tombol mengisi lebar penuh container-nya */
+  padding: 15px;
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  border: none;
+  display: block;
+  box-sizing: border-box;
+  transition: all 0.25s ease-in-out;
+}
+
+/* Gaya spesifik untuk setiap tombol */
+.action-btn.download-btn {
+  background: var(--accent-color); /* Warna oranye */
+  color: white;
+  font-weight: bold;
+}
+
+.action-btn.download-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 6px 15px rgba(255, 112, 67, 0.4);
+}
+
+.action-btn.retry-btn {
+  background: #444; /* Warna abu-abu gelap */
+  color: var(--text-color);
+  border: 2px solid #555;
+}
+
+.action-btn.retry-btn:hover {
+  background: #4A4A4A; /* Warna hover lebih lembut */
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.action-btn.home-btn {
+  background: #555; /* Warna abu-abu */
+  color: white;
+  border: 2px solid #666;
+}
+
+.action-btn.home-btn:hover {
+  background: #666;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* Loading overlay (pastikan sudah ada dan benar) */
+.loading-overlay.full-screen {
+  position: fixed; /* Kembali ke fixed agar menutupi seluruh layar */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex; /* <-- PASTIKAN INI ADA DAN FLEX */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  z-index: 100;
+  border-radius: 0; /* Hapus border radius agar menutupi penuh */
+  opacity: 0; /* Mulai tersembunyi */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.loading-overlay.full-screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Media query untuk responsif */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding: 0 10px;
+    align-items: center;
+    height: auto;
+    margin: 10px auto;
+  }
+
+  .controls-panel,
+  .webcam-preview-panel {
+    flex: 0 0 100%;
+    min-width: unset;
+    height: auto;
+  }
+
+  .webcam-preview-panel {
+    padding-top: 0;
+  }
+
+  video {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .preview-text {
+    display: none;
+  }
+
+  .gender-selection .gender-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .gender-btn {
+    width: auto;
+    flex-grow: 1;
+  }
+
+  .filters-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom di mobile */
+  }
+
+  .filter-option {
+    height: auto;
+  }
+
+  /* Penyesuaian font dan padding untuk mobile */
+  .navbar {
+    font-size: 18px;
+    flex-direction: column; /* Tombol navbar vertikal di mobile */
+    gap: 10px;
+    padding: 10px;
+  }
+  .navbar .nav-button {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .gender-selection label, .filter-section label {
+    font-size: 1em;
+  }
+  .gender-btn {
+    font-size: 1em;
+    padding: 8px 12px;
+  }
+  .filter-option img {
+    width: 70px;
+    height: 60px;
+  }
+  .filter-option span {
+    font-size: 0.8em;
+  }
+  #capture {
+    font-size: 1.5em;
+    padding: 12px;
+  }
+  #countdown {
+    font-size: 80px;
+  }
+  /* Sesuaikan tombol hasil di mobile */
+  .result-buttons-container .action-btn {
+      font-size: 1.2em;
+      padding: 10px;
+      flex: 1 1 100%; /* Di mobile, tombol hasil menjadi 1 kolom penuh */
+      max-width: unset; /* Hapus batasan max-width */
+  }
+  #home-btn-result {
+      margin-top: 10px; /* Jarak antar tombol di mobile */
+      max-width: unset; /* Hapus batasan max-width */
+  }
+
+  /* Tambahan styling untuk prompt-photobooth di mobile */
+  .custom-prompt-section.full-width {
+    padding: 10px; /* Sesuaikan padding untuk mobile */
+  }
+
+  /* Media query untuk responsif pada halaman result */
+  .main-container.result-page-layout {
+    flex-direction: column; /* Tampilan mobile: kontrol di bawah gambar */
+    height: auto; /* Biarkan tinggi menyesuaikan konten */
+  }
+
+  .generated-image-panel,
+  .result-actions-panel {
+    flex: 0 0 100%; /* Mengambil lebar penuh */
+    min-width: unset;
+    max-width: unset;
+    height: auto; /* Biarkan tinggi menyesuaikan konten */
+  }
+
+  .generated-image-panel {
+    min-height: 300px; /* Tinggi minimum untuk panel gambar di mobile */
+  }
+
+  .result-actions-panel {
+    order: 2; /* Letakkan panel aksi di bawah gambar di mobile */
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .generated-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .result-label {
+    font-size: 1.5em;
+  }
+
+  .result-buttons-container {
+    flex-direction: column; /* Tetap kolom di mobile */
+    gap: 10px;
+  }
+
+  .result-buttons-container .action-btn {
+    font-size: 1.1em;
+    padding: 12px;
+  }
+}
+
+/* New custom prompt section styling */
+.custom-prompt-section {
+  width: 100%;
+  background: var(--secondary-bg); /* Konsisten dengan secondary-bg */
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-sm); /* Konsisten dengan spacing-sm */
+  box-sizing: border-box;
+}
+
+.custom-prompt-section label {
+  font-size: 1.1em;
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 600; /* Lebih tebal */
+}
+
+.custom-prompt-section textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: #444;
+  color: white;
+  font-size: 1em;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease; /* Transisi untuk border */
+}
+
+.custom-prompt-section textarea::placeholder {
+  color: #aaa;
+}
+
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Latar belakang gelap transparan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Pastikan di atas semua elemen lain */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.qr-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.qr-modal-content {
+  background: var(--secondary-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+  position: relative;
+  max-width: 90%;
+  min-width: 300px;
+  box-shadow: var(--box-shadow-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  transform: translateY(20px); /* Mulai sedikit ke bawah */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.qr-modal-overlay.active .qr-modal-content {
+    transform: translateY(0); /* Kembali ke posisi normal */
+    opacity: 1;
+}
+
+.qr-modal-content .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 2em;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.qr-modal-content .close-btn:hover {
+  color: var(--accent-color);
+}
+
+.qr-modal-content label {
+  font-size: 1.4em;
+  color: var(--text-color);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+#modal-qrcode {
+  padding: 10px;
+  background: white;
+  border-radius: 5px;
+  display: inline-block; /* Agar padding dan background terlihat */
+}
+
+/* Penyesuaian untuk tombol download di result.html agar lebih jelas */
+.action-btn.download-btn {
+  background: var(--accent-color);
+  color: white;
+  font-weight: bold;
+}
+.action-btn.download-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+.filter-selection-buttons::-webkit-scrollbar {
+  height: 8px; /* Tinggi scrollbar horizontal */
+  background-color: #383838; /* Warna latar belakang jalur scrollbar */
+  border-radius: 4px; /* Sudut membulat untuk jalur */
+}
+
+.filter-selection-buttons::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color); /* Warna thumb scrollbar */
+  border-radius: 4px; /* Sudut membulat untuk thumb */
+  border: 1px solid var(--primary-bg); /* Border tipis untuk membedakan thumb dari track */
+}
+
+.filter-selection-buttons::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-hover); /* Warna thumb saat di-hover */
+}
+
+/* Custom Scrollbar for Firefox */
+.filter-selection-buttons {
+  scrollbar-width: thin; /* Membuat scrollbar lebih tipis */
+  scrollbar-color: var(--accent-color) #383838; /* Warna thumb dan track (thumb track) */
+}
+
+/* Custom Scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+.filters-grid::-webkit-scrollbar {
+  height: 8px; /* Tinggi scrollbar horizontal */
+  background-color: #383838; /* Warna latar belakang jalur scrollbar */
+  border-radius: 4px; /* Sudut membulat untuk jalur */
+}
+
+.filters-grid::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color); /* Warna thumb scrollbar */
+  border-radius: 4px; /* Sudut membulat untuk thumb */
+  border: 1px solid var(--primary-bg); /* Border tipis untuk membedakan thumb dari track */
+}
+
+.filters-grid::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-hover); /* Warna thumb saat di-hover */
+}
+
+/* Custom Scrollbar for Firefox */
+.filters-grid {
+  scrollbar-width: thin; /* Membuat scrollbar lebih tipis */
+  scrollbar-color: var(--accent-color) #383838; /* Warna thumb dan track (thumb track) */
+}

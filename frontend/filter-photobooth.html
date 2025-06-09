@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Genie Filter</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="navbar">
+    <img src="/filters/logo.png" alt="Logo AI Photobooth" class="navbar-logo">
+    <div class="nav-buttons-right">
+      <a href="/" class="nav-button">Home</a>
+      <a href="/filter-photobooth.html" class="nav-button active">Genie Filter</a>
+      <a href="/prompt-photobooth.html" class="nav-button">Genie Prompt</a>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="controls-panel">
+      <div class="gender-selection">
+        <label>Your Gender</label>
+        <div class="gender-buttons">
+          <button id="gender-male" class="gender-btn" data-gender="man">Man</button>
+          <button id="gender-female" class="gender-btn" data-gender="woman">Woman</button>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <label>Choose Filter</label>
+        <div class="filters-grid" id="carousel">
+          </div>
+      </div>
+
+      <button id="capture">Take Picture</button>
+      <button id="generate-all-filters" style="display: none; margin-top: 10px;">Generate All Filters</button>
+    </div>
+
+    <div class="webcam-preview-panel">
+      <video id="webcam" autoplay playsinline></video>
+      <div id="countdown">3</div> <canvas id="canvas" style="display:none;"></canvas>
+      <div class="preview-text">Preview Camera</div>
+    </div>
+  </div>
+
+  <div class="loading-overlay full-screen">
+    <img src="filters/load.gif" alt="Loading..." class="loading-gif">
+    <p>Generating your masterpiece...</p>
+  </div>
+
+  <script src="filter-script.js"></script>
+</body>
+</html>

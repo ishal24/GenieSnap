@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Genie Snap</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Gaya tambahan untuk tombol filter di halaman hasil (Hanya untuk Genie Filter) */
+    .filter-selection-buttons {
+      display: flex;
+      /* UBAH INI: Agar carousel bisa di-scroll secara horizontal */
+      overflow-x: auto; /* Mengaktifkan scroll horizontal jika konten melebihi lebar */
+      white-space: nowrap; /* Mencegah item wrap ke baris baru */
+      -webkit-overflow-scrolling: touch; /* Meningkatkan pengalaman scrolling di iOS */
+      padding: 10px 0; /* Padding vertikal untuk tombol */
+      gap: 15px; /* Jarak antar item di carousel */
+      justify-content: flex-start; /* Agar item mulai dari kiri */
+      margin-top: 20px; /* Jarak antara gambar dan tombol filter */
+      margin-bottom: 20px;
+      width: 100%;
+      /* min-width: 100px;  Batasi lebar container tombol - ini mungkin tidak lagi relevan dengan carousel */
+    }
+
+    /* Gaya untuk setiap opsi filter di carousel */
+    .filter-selection-buttons .filter-option-result {
+      flex: 0 0 auto; /* Mencegah item memanjang dan mempertahankan ukurannya */
+      cursor: pointer;
+      display: inline-flex; /* Menggunakan inline-flex untuk carousel horizontal */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      padding: 5px;
+      background: #333;
+      color: white;
+      user-select: none;
+      text-align: center;
+      transition: all 0.2s ease;
+      width: 120px; /* Lebar tetap untuk setiap item carousel */
+      height: 150px; /* Tinggi tetap untuk setiap item carousel */
+      box-sizing: border-box;
+      white-space: normal; /* Izinkan teks nama filter wrap */
+    }
+
+    .filter-selection-buttons .filter-option-result.selected {
+      border-color: #fa7917;
+      background: #444;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .filter-selection-buttons .filter-option-result:hover:not(.selected) {
+      background: #555;
+      border-color: #fa7917;
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .filter-selection-buttons .filter-option-result img {
+      width: 80px; /* Ukuran gambar di dalam item carousel */
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+    .filter-selection-buttons .filter-option-result span {
+      font-size: 0.8em;
+      white-space: normal;
+      word-break: break-word; /* Memastikan teks panjang pecah kata */
+    }
+
+
+    /* Penyesuaian layout panel aksi untuk tombol filter */
+    .result-actions-panel {
+      justify-content: center; /* Pusatkan konten vertikal */
+      align-items: center; /* Pusatkan konten horizontal */
+      min-width: 300px; /* Sesuaikan min-width agar tidak terlalu lebar */
+      max-width: 400px; /* Sesuaikan max-width agar tidak terlalu lebar */
+    }
+
+    /* Gaya untuk QR Code Modal Overlay */
+    .qr-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85); /* Latar belakang gelap transparan */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Pastikan di atas semua elemen lain */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .qr-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .qr-modal-content {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      max-width: 90%;
+      min-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .qr-modal-content .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2em;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    .qr-modal-content .close-btn:hover {
+      color: #fa7917;
+    }
+
+    .qr-modal-content label {
+      font-size: 1.2em;
+      margin-top: 15px;
+      color: #ccc;
+      font-weight: bold;
+    }
+
+    #modal-qrcode {
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      display: inline-block; /* Agar padding dan background terlihat */
+    }
+
+    /* Penyesuaian untuk tombol download di result.html agar lebih jelas */
+    .action-btn.download-btn {
+      background: #fa7917;
+      color: white;
+      font-weight: bold;
+    }
+    .action-btn.download-btn:hover {
+      background: #fa7917;
+      transform: translateY(-2px);
+    }
+
+    /* Media query untuk responsif pada halaman result - tambahan QR */
+    @media (max-width: 768px) {
+        .qr-code-section {
+            padding: 10px;
+        }
+        #qrcode {
+            transform: scale(0.8); /* Perkecil QR code di mobile jika terlalu besar */
+        }
+
+        /* Responsive untuk carousel filter di result */
+        .filter-selection-buttons {
+          justify-content: flex-start; /* Pastikan tetap mulai dari kiri di mobile */
+          padding: 5px 0;
+          gap: 10px;
+        }
+
+        .filter-selection-buttons .filter-option-result {
+          width: 100px; /* Ukuran yang lebih kecil untuk mobile */
+          height: 130px;
+          padding: 3px;
+        }
+
+        .filter-selection-buttons .filter-option-result img {
+          width: 70px;
+          height: 70px;
+        }
+
+        .filter-selection-buttons .filter-option-result span {
+          font-size: 0.7em;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <img src="filters/logo.png" alt="Logo AI Photobooth" class="navbar-logo">
+    <div class="nav-buttons-right">
+      <a href="/" class="nav-button">Home</a>
+      <a href="/filter-photobooth.html" class="nav-button">Genie Filter</a>
+      <a href="/prompt-photobooth.html" class="nav-button">Genie Prompt</a>
+    </div>
+  </div>
+  <div class="main-container result-page-layout">
+
+    <div class="generated-image-panel">
+      <img id="generated-image-display" src="" alt="AI Generated Photo" class="generated-image">
+
+    </div>
+
+    <div class="result-actions-panel">
+      <label class="result-label">Your Genie Snap !</label>
+
+      <div id="filter-selection-buttons-container" class="filter-selection-buttons" style="display: none;">
+        </div>
+
+      <div class="result-buttons-container">
+        <button id="download-btn-result" class="action-btn download-btn">Download</button>
+        <button id="retry-btn-result" class="action-btn retry-btn">Try Again</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="loading-overlay full-screen">
+        <img src="filters/load.gif" alt="Loading..." class="loading-gif">
+        <p>Loading your masterpiece...</p>
+  </div>
+
+  <div id="qr-modal-overlay" class="qr-modal-overlay">
+    <div class="qr-modal-content">
+      <button class="close-btn">&times;</button>
+      <label>Scan QR Code to Download !</label>
+      <div id="modal-qrcode"></div>
+      <a id="direct-download-link" href="#" download="genie_snap.jpeg" style="color:#ff6600; text-decoration:underline; font-size:1em;">Download to this Device</a>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="result-script.js"></script>
+</body>
+</html>

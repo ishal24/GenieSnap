@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - SD_API_URL=http://stable-diffusion:7860
+      - IMGUR_CLIENT_ID=YOUR_IMGUR_CLIENT_ID
+    depends_on:
+      - stable-diffusion
+
+  stable-diffusion:
+    build:
+      context: ./stable-diffusion
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./models:/app/models/Stable-diffusion
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
