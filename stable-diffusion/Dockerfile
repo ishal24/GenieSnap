@@ -37,7 +37,7 @@ RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /app
 RUN pip install -r requirements.txt
 
 # Install PyTorch with CUDA 12.1
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN pip install torch torchvision torchaudio
 
 # Optionally install xformers (for better performance)
 RUN pip install xformers
@@ -48,3 +48,4 @@ RUN mkdir -p /app/models/Stable-diffusion
 EXPOSE 7860
 
 CMD ["python", "launch.py", "--api", "--listen", "--cors-allow-origins=*"]
+CMD ["python", "launch.py", "--api", "--listen", "--no-download", "--ckpt", "/app/models/Stable-diffusion/revAnimated_v2Rebirth.safetensors"]

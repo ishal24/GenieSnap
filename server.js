@@ -46,9 +46,7 @@ app.get("/result.html", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "result.html"));
 });
 
-// Tentukan Imgur Client ID dari variabel lingkungan
-// Penting: Ganti 'YOUR_IMGUR_CLIENT_ID' dengan Client ID Anda dari langkah 1
-const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID || 'YOUR_IMGUR_CLIENT_ID';
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID || '553b2995dba9e4b';
 
 // API endpoint to handle image generation
 app.post("/generate", async (req, res) => {

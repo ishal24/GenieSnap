@@ -9,7 +9,6 @@ services:
       - .:/app
     environment:
       - SD_API_URL=http://stable-diffusion:7860
-      - IMGUR_CLIENT_ID=YOUR_IMGUR_CLIENT_ID
     depends_on:
       - stable-diffusion
 
@@ -19,7 +18,8 @@ services:
     ports:
       - "7860:7860"
     volumes:
-      - ./models:/app/models/Stable-diffusion
+      - ./sd_models:/app/models/Stable-diffusion
+    command: ["python", "launch.py", "--api", "--listen", "--no-download", "--ckpt", "/app/models/Stable-diffusion/revAnimated_v2Rebirth.safetensors"]
     deploy:
       resources:
         reservations:
