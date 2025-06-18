@@ -17,16 +17,20 @@ Buat folder `sd_models` di dalam direktori project, lalu pindah ke folder terseb
 mkdir sd_models
 cd sd_models
 ```
-
 ### 3. Download Model Checkpoint
 
-Unduh model `revAnimated_v2Rebirth.safetensors` melalui link berikut:
+Unduh model `revAnimated_v2Rebirth.safetensors` dan pilih yang `Full Model fp32 (5.13 GB)` melalui link berikut:
 
-🔗 [Download Model (SafeTensor - FP32)](https://civitai.com/api/download/models/425083)
+🔗 [Download Model (SafeTensor - FP32)](https://civitai.com/api/download/models/425083?type=Model&format=SafeTensor&size=full&fp=fp32)
+
+Pastikan model tersimpan di folder `sd_models`
 
 ### 4. Jalankan Docker
 
+Pindah ke folder utama terlebih dahulu, lalu jalankan docker
+
 ```bash
+cd ..
 docker compose up --build
 ```
 
@@ -34,15 +38,20 @@ Tunggu hingga semua container selesai dibangun dan dijalankan.
 
 ### 5. Akses Stable Diffusion Web UI
 
+Jika terlihat di cli ada seperti ini,
+```
+stable-diffusion-1  |   warnings.warn(
+```
+
 Buka browser dan akses:
 
 ```
 http://localhost:7860
 ```
 
-* Klik tombol **Reload UI**
 * Pastikan **Model Checkpoint** yang terpilih adalah:
   `revAnimated_v2Rebirth.safetensors`
+* Klik tombol **Reload UI**
 
 ### 6. Akses GenieSnap Frontend
 
@@ -55,7 +64,3 @@ http://localhost:3000
 ### 7. Snap Your Pic! 📸
 
 Mulailah gunakan AI Photobooth kamu dan nikmati hasilnya 🎉
-
----
-
-Jika kamu ingin menambahkan bagian **FAQ**, **Troubleshooting**, atau **Fitur**, tinggal kabari saja dan saya bantu tambahkan.
