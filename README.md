@@ -55,7 +55,10 @@ http://localhost:7860
 
 * Pastikan **Model Checkpoint** yang terpilih adalah:
   `revAnimated_v2Rebirth.safetensors`
+![Reload UI](https://github.com/ishal24/GenieSnap/blob/main/img/image2.png)
+
 * Klik tombol **Reload UI**
+![Reload UI](https://github.com/ishal24/GenieSnap/blob/main/img/image.png)
 
 ### 🎨 6. Akses GenieSnap Frontend
 
