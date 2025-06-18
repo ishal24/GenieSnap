@@ -19,9 +19,13 @@ cd sd_models
 ```
 ### 3. Download Model Checkpoint
 
-Unduh model `revAnimated_v2Rebirth.safetensors` dan pilih yang `Full Model fp32 (5.13 GB)` melalui link berikut:
+Unduh model `revAnimated_v2Rebirth.safetensors` melalui link berikut:
 
-🔗 [Download Model (SafeTensor - FP32)](https://civitai.com/api/download/models/425083?type=Model&format=SafeTensor&size=full&fp=fp32)
+🔗 [Download Model (SafeTensor - FP32)](http://10.4.90.23:8000/revAnimated_v2Rebirth.safetensors)
+
+```bash
+wget http://10.4.90.23:8000/revAnimated_v2Rebirth.safetensors
+```
 
 Pastikan model tersimpan di folder `sd_models`
 
