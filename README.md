@@ -42,7 +42,7 @@ Tunggu hingga semua container selesai dibangun dan dijalankan.
 
 ### 🌐 5. Akses Stable Diffusion Web UI
 
-Jika terlihat di cli ada seperti ini,
+Jika docker container telah selesai di build dan kemudian stuck pada bagian ini,
 ```
 stable-diffusion-1  |   warnings.warn(
 ```
@@ -57,7 +57,7 @@ http://localhost:7860
   `revAnimated_v2Rebirth.safetensors`
 ![Reload UI](https://github.com/ishal24/GenieSnap/blob/main/img/image2.png)
 
-* Klik tombol **Reload UI**
+* Klik tombol **Reload UI**, lalu tunggu beberapa saat hingga proses reload selesai
 ![Reload UI](https://github.com/ishal24/GenieSnap/blob/main/img/image.png)
 
 ### 🎨 6. Akses GenieSnap Frontend
